@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legendy Klasycznych Zapasów</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, transparent 50%, rgba(220, 38, 38, 0.05) 100%);
+            padding: 120px 20px;
+            text-align: center;
+        }
+
+        .hero-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .trophy-icon {
+            width: 60px;
+            height: 60px;
+            color: #fbbf24;
+            animation: bounce 3s infinite;
+        }
+
+        .medal-icon {
+            width: 80px;
+            height: 80px;
+            color: #fbbf24;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeIn 1s ease-out 0.2s both;
+        }
+
+        .hero .highlight {
+            background: linear-gradient(to right, #fbbf24, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out 0.4s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #cbd5e1;
+        }
+
+        .search-section {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #334155;
+            border-bottom: 1px solid #334155;
+            padding: 30px 20px;
+        }
+
+        .search-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 12px 12px 45px;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            width: 20px;
+            height: 20px;
+        }
+
+        .filter-select {
+            padding: 12px 40px 12px 15px;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #fbbf24;
+        }
+
+        .reset-btn {
+            padding: 12px 20px;
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid #991b1b;
+            border-radius: 8px;
+            color: #fca5a5;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: rgba(220, 38, 38, 0.3);
+            border-color: #dc2626;
+        }
+
+        .search-results {
+            margin-top: 15px;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .search-results span {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .wrestlers-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .wrestlers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .wrestler-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .wrestler-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(251, 191, 36, 0.5);
+            box-shadow: 0 20px 60px rgba(251, 191, 36, 0.2);
+        }
+
+        .wrestler-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(220, 38, 38, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .wrestler-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .wrestler-name {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .wrestler-card:hover .wrestler-name {
+            color: #fbbf24;
+        }
+
+        .wrestler-nickname {
+            color: #fbbf24;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .olympic-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(251, 191, 36, 0.2);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .olympic-count {
+            color: #fbbf24;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .card-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: #334155;
+            color: #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        .badge-style {
+            background: linear-gradient(to right, #dc2626, #991b1b);
+            color: white;
+        }
+
+        .wrestler-bio {
+            color: #cbd5e1;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            padding-top: 15px;
+            border-top: 1px solid #334155;
+        }
+
+        .achievement-count {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-bottom: 8px;
+        }
+
+        .career-record {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .career-record span {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .hover-cta {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #334155;
+            text-align: center;
+            color: #fbbf24;
+            font-size: 0.875rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .wrestler-card:hover .hover-cta {
+            opacity: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .modal-header {
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #fbbf24, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            color: #fbbf24;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid #991b1b;
+            border-radius: 8px;
+            color: #fca5a5;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(220, 38, 38, 0.3);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .info-label {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .title-banner {
+            background: linear-gradient(to right, rgba(251, 191, 36, 0.2), rgba(220, 38, 38, 0.2));
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .title-text {
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bio-text {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .record-card {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .record-label {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-bottom: 5px;
+        }
+
+        .record-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .achievement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .achievement-item:hover {
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+
+        .achievement-number {
+            flex-shrink: 0;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #fbbf24, #dc2626);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .achievement-text {
+            color: #cbd5e1;
+            line-height: 1.6;
+            padding-top: 5px;
+        }
+
+        .legacy-banner {
+            background: linear-gradient(to right, rgba(251, 146, 36, 0.3), rgba(220, 38, 38, 0.3));
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .legacy-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .legacy-text {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .footer {
+            background: #0f172a;
+            border-top: 1px solid #334155;
+            padding: 40px 20px;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .footer-text {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .no-results-icon {
+            width: 80px;
+            height: 80px;
+            color: #334155;
+            margin: 0 auto 20px;
+        }
+
+        .no-results-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .no-results-text {
+            color: #64748b;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.125rem;
+            }
+
+            .wrestlers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+        }
+
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-icons">
+            <svg class="trophy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+            </svg>
+            <svg class="medal-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+            </svg>
+            <svg class="trophy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="animation-delay: 0.5s">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+            </svg>
+        </div>
+        
+        <h1>
+            Legendy <span class="highlight">Klasycznych</span><br>Zapasów
+        </h1>
+        
+        <p>Odkryj historie największych zapaśników wszech czasów</p>
+        
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number">11</div>
+                <div class="stat-label">Legendy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Kraje</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Medale</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-section">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Szukaj zapaśnika po nazwisku, kraju lub pseudonimie..."
+                >
+            </div>
+            
+            <select id="countryFilter" class="filter-select">
+                <option value="all">Wszystkie kraje</option>
+            </select>
+            
+            <select id="styleFilter" class="filter-select">
+                <option value="all">Wszystkie style</option>
+                <option value="Freestyle">Freestyle</option>
+                <option value="Greco-Roman">Greco-Roman</option>
+                <option value="Sumo">Sumo</option>
+            </select>
+
+            <button id="resetBtn" class="reset-btn" style="display: none;">Resetuj</button>
+        </div>
+        
+        <div class="search-results" id="searchResults" style="display: none; text-align: center;"></div>
+    </div>
+
+    <div class="wrestlers-container">
+        <div class="wrestlers-grid" id="wrestlersGrid"></div>
+        <div class="no-results" id="noResults" style="display: none;">
+            <svg class="no-results-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <h3 class="no-results-title">Nie znaleziono zapaśników</h3>
+            <p class="no-results-text">Spróbuj zmienić kryteria wyszukiwania</p>
+        </div>
+    </div>
+
+    <div id="wrestlerModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p class="footer-title">Legendy Klasycznych Zapasów</p>
+        <p class="footer-text">Historia największych mistrzów olimpijskich i światowych</p>
+    </footer>
+
+    <script>
+        const wrestlers = [
+            {
+                id: '1',
+                name: 'Skiba Cyprian',
+                country: 'Polska',
+                era: '2010-2025',
+                style: 'Greco-Roman',
+                weight: '65 kg',
+                achievements: [
+                    'Złoty medalista mistrzostw wojewódzkich (2010-2025)',
+                    '3-krotny srebrny medalista mistrzostw wojewódzkich (2000)',
+                    '4-krotny mistrz w Strupinie',
+                    'Niezwyciężony przez 8 lat (2017-2025)'
+                ],
+                titles: 'Legenda zapasów greco-romańskich',
+                bio: 'Legenda klubu MKS Pogoń Tyszowce i ZKS Lwy Łaszczów',
+                careerRecord: '83-14',
+                nickname: 'Pietrucha'
+            },
+            {
+                id: '2',
+                name: 'Szymon Gardyjas',
+                country: 'Polska',
+                era: '2010-2025',
+                style: 'Grecko-Roman',
+                weight: '140 kg',
+                achievements: [
+                    'Złoty medalista mistrzistw Europy w sumo (2025)',
+                    'Mistrz polski w sumo',
+                    '4-krotny mistrz województwa w zapasach',
+                ],
+                titles: 'Jeden z lepszych zawodników w klubie',
+                bio: 'Legenda klubu MKS Pogoń Tyszowce i ZKS Lwy Łaszczów',
+                careerRecord: '63-10',
+                nickname: 'Gardyjas'
+            },
+            {
+                id: '3',
+                name: 'Paweł Przyczyna',
+                country: 'Polska',
+                era: '2010-2025',
+                style: 'Greco-Roman',
+                weight: '70 kg',
+                achievements: [
+                    'Złoty medalista mistrzostw wojewódzkich (2025)',
+                    '6 złotych medali łącznie',
+                    'Jedyny klubu MKS zawodnik który przyjechał 30 km na trening podczas srogiego upału i jeszcze chciał wracac po treningu',
+                ],
+                titles: 'Jeden z lepszych zawodniików klubu MKS Pogoń Tyszowce',
+                bio: 'Legenda klubu MKS Pogoń Tyszowce',
+                careerRecord: '56-8',
+                nickname: 'Świerzak'
+            },
+            {
+                id: '4',
+                name: 'Piotrek Brzeziak',
+                country: 'Polska',
+                era: '2012-2025',
+                style: 'Greco-Roman',
+                weight: '90 kg',
+                achievements: [
+                    '3-krotny Złoty medalista mistrzostw wojewódzkich (2022, 2023, 2024)',
+                    '4-krotny brązowy medalista mistrzostw wojewódzkich w Strupinie',
+                    'Dominował w kategorii dzieci przez 3 lata',
+                    'Postrach w kategorii dzieci. Ponoć przed walkami siał postrach słowami "połozysz sie sam czy ja mam cie położyc" '
+                ],
+                titles: 'Polski gigant zapasów',
+                bio: 'Jeden z najlepszych zawodników MKS Pogoń Tyszowce i ZKS Lwy Łaszczów',
+                careerRecord: '34-9',
+                nickname: 'Bestia z Telatyna'
+            },
+            {
+                id: '5',
+                name: 'Jakub Grzeszczuk',
+                country: 'Polska',
+                era: '2011-2025',
+                style: 'Greco-Roman',
+                weight: '63 kg',
+                achievements: [
+                    'Złoty medalista mistrzostw wojewódzkich w Strupinie (2025)',
+                    '3-krotny Srebrny medalista mistrzostw wojewódzkich w Strupinie (2023, 2024, 2025)',
+                    '6-krotny mistrz świata',
+                    'Najbardziej utytułowany zapaśnik w stylu wolnym'
+                ],
+                titles: 'Autor słynnego tekstu "Pod Dino"',
+                bio: 'Jeden z lepszych zawodników klubu ZKS Dołhobyczów',
+                careerRecord: '66-14',
+                nickname: 'Kubi/Kubiszon'
+            },
+            {
+                id: '6',
+                name: 'Wiktor Marszalec',
+                country: 'Polska',
+                era: '2011-2025',
+                style: 'Greco-Roman',
+                weight: '75 kg',
+                achievements: [
+                    'Złoty medalista mistrzostw wojewódzkich (2024)',
+                    '4-krotny Srebrny medalista mistrzostw wojewódzkich w Strupinie (202-2025)',
+                    '3-krotny mistrz świata',
+                    'Ikona zapasów'
+                ],
+                titles: 'Jest najrozsądniejszy z całej grupy',
+                bio: 'Jeden z lepszych zawodników klubu MKS Pogoń Tyszowce',
+                careerRecord: '89-31',
+                nickname: 'Viktor'
+            },
+            {
+                id: '7',
+                name: 'Antonina Kopera',
+                country: 'Polska',
+                era: '2011-2025',
+                style: 'Freestyle',
+                weight: '52 kg',
+                achievements: [
+                    '3-krotna Srebrna medalistka mistrzostw wojewódzkich w stylu wolnym',
+                    'Legenda sekcji zapaśniczej w Dołhobyczowie'
+                ],
+                titles: 'Anton',
+                bio: 'Jedna z najlepszych zapaśniczek w Klubie MKS Pogoń Tyszowce i ZKS Dołhobyczów',
+                careerRecord: '26-12',
+                nickname: 'Tosiula'
+            },
+            {
+                id: '8',
+                name: 'Laura Ferenc',
+                country: 'Polska',
+                era: '2012-2025',
+                style: 'Freestyle',
+                weight: '40 kg',
+                achievements: [
+                    'Złota medalistka mistrzostw wojewódzkich w stylu wolnym',
+                    'Wybitna zawodniczka'
+                ],
+                titles: 'Mistrzyni w swojej wadze',
+                bio: 'Jedna z najlepszych zapśniczek w klubie MKS Pogoń Tyszowce',
+                careerRecord: '50-10',
+                nickname: 'Laura'
+            },
+            {
+                id: '9',
+                name: 'Nikola Wypych',
+                country: 'Polska',
+                era: '2009-2025',
+                style: 'Freestyle',
+                weight: '55 kg',
+                achievements: [
+                    'Złota medalistka mistrzostw wojewódzkich w stylu wolnym',
+                    'Wielokrotna mistrzyni w stylu wolnym',
+                    'Legenda stylu wolnego'
+                ],
+                titles: 'Wypychowa',
+                bio: 'Jedena z najlepszych zawodniczek klubu MKS Pogoń Tyszowce',
+                careerRecord: '42-18',
+                nickname: 'Nikola'
+            },
+            {
+                id: '10',
+                name: 'Klaudia Wypych',
+                country: 'Polska',
+                era: '2010-2025',
+                style: 'Freestyle',
+                weight: '64 kg',
+                achievements: [
+                    'Wielokrotna Złota medalistka mistrzostw wojewódzkich w stylu wolnym',
+                ],
+                titles: 'Klaudia',
+                bio: 'Uważana za jednedną z najlepszych zawodniczek Pogoni',
+                careerRecord: '34-7',
+                nickname: 'Wypychowa'
+            },
+            {
+                id: '11',
+                name: 'Wiktoria Szamatuła',
+                country: 'Polska',
+                era: '2012-2025',
+                style: 'Freestyle',
+                weight: '64 kg',
+                achievements: [
+                    'Mistrzyni województwa w zapasach',
+                ],
+                titles: 'Wiktoria',
+                bio: 'Jedna z lepszych zawodniczek klubu MKS Pogoń Tyszowce',
+                careerRecord: '32-14',
+                nickname: 'Wiktoria'
+            },
+            {
+                id: 'Trener',
+                name: 'Daniel Chwastek',
+                country: 'Polska',
+                era: '2010-2025',
+                style: 'Wrestling',
+                achievements: [
+                    'Najlepszy trener zawodników',
+                    'Załorzyciel klubów MKS Pogoń Tyszowce, ZKS Lwy Łaszczów i ZKS Dołhobyczów',
+                    'Trenował takich zawodników jak Adam Gardzioła i Jakub Antoszewski',
+                    'Trenuje Mistrza europy Szymona Gardyjasa i Miłosza Bysia',
+                    'Najlepszy trener na świecie'
+                ],
+                titles: 'Trener',
+                bio: 'Wybitny trener MKS Pogoni ZKS Lwów i Dołhobyczowa',
+                nickname: 'Trener'
+            }
+        ];
+
+        let filteredWrestlers = [...wrestlers];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            populateCountryFilter();
+            renderWrestlers(wrestlers);
+            setupEventListeners();
+        });
+
+        function populateCountryFilter() {
+            const countries = [...new Set(wrestlers.map(w => w.country))].sort();
+            const countryFilter = document.getElementById('countryFilter');
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                countryFilter.appendChild(option);
+            });
+        }
+
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', filterWrestlers);
+            document.getElementById('countryFilter').addEventListener('change', filterWrestlers);
+            document.getElementById('styleFilter').addEventListener('change', filterWrestlers);
+            document.getElementById('resetBtn').addEventListener('click', resetFilters);
+            
+            document.getElementById('wrestlerModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
+
+        function filterWrestlers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedCountry = document.getElementById('countryFilter').value;
+            const selectedStyle = document.getElementById('styleFilter').value;
+
+            filteredWrestlers = wrestlers.filter(wrestler => {
+                const matchesSearch = wrestler.name.toLowerCase().includes(searchTerm) ||
+                                    wrestler.country.toLowerCase().includes(searchTerm) ||
+                                    wrestler.nickname.toLowerCase().includes(searchTerm);
+                const matchesCountry = selectedCountry === 'all' || wrestler.country === selectedCountry;
+                const matchesStyle = selectedStyle === 'all' || wrestler.style.includes(selectedStyle);
+                
+                return matchesSearch && matchesCountry && matchesStyle;
+            });
+
+            renderWrestlers(filteredWrestlers);
+            updateSearchResults();
+            updateResetButton();
+        }
+
+        function updateSearchResults() {
+            const searchResults = document.getElementById('searchResults');
+            const hasActiveFilters = document.getElementById('searchInput').value ||
+                                    document.getElementById('countryFilter').value !== 'all' ||
+                                    document.getElementById('styleFilter').value !== 'all';
+
+            if (hasActiveFilters) {
+                searchResults.style.display = 'block';
+                searchResults.innerHTML = 'Znaleziono <span>' + filteredWrestlers.length + '</span> zapaśników';
+            } else {
+                searchResults.style.display = 'none';
+            }
+        }
+
+        function updateResetButton() {
+            const hasActiveFilters = document.getElementById('searchInput').value ||
+                                    document.getElementById('countryFilter').value !== 'all' ||
+                                    document.getElementById('styleFilter').value !== 'all';
+            
+            document.getElementById('resetBtn').style.display = hasActiveFilters ? 'block' : 'none';
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('countryFilter').value = 'all';
+            document.getElementById('styleFilter').value = 'all';
+            filterWrestlers();
+        }
+
+        function renderWrestlers(wrestlersToRender) {
+            const grid = document.getElementById('wrestlersGrid');
+            const noResults = document.getElementById('noResults');
+
+            if (wrestlersToRender.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+            grid.innerHTML = '';
+
+            wrestlersToRender.forEach((wrestler, index) => {
+                const card = createWrestlerCard(wrestler, index);
+                grid.appendChild(card);
+            });
+        }
+
+        function createWrestlerCard(wrestler, index) {
+            const olympicGolds = wrestler.achievements.filter(a => 
+                a.toLowerCase().includes('złoty') && a.toLowerCase().includes('olimpijski')
+            ).length;
+
+            const card = document.createElement('div');
+            card.className = 'wrestler-card';
+            card.style.animationDelay = (index * 0.1) + 's';
+            card.onclick = () => openModal(wrestler);
+
+            const olympicBadge = olympicGolds > 0 ? 
+                '<div class="olympic-badge"><svg style="width: 24px; height: 24px; color: #fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg><span class="olympic-count">×' + olympicGolds + '</span></div>' : '';
+
+            card.innerHTML = '<div class="card-header"><div><h3 class="wrestler-name">' + wrestler.name + '</h3><p class="wrestler-nickname">' + wrestler.nickname + '</p></div>' + olympicBadge + '</div><div class="card-badges"><span class="badge"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>' + wrestler.country + '</span><span class="badge"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>' + wrestler.era + '</span></div><div class="card-badges"><span class="badge badge-style"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>' + wrestler.style + '</span><span class="badge">' + wrestler.weight + '</span></div><p class="wrestler-bio">' + wrestler.bio + '</p><div class="card-footer"><div class="achievement-count"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #fbbf24;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg><span>' + wrestler.achievements.length + ' głównych osiągnięć</span></div>' + (wrestler.careerRecord ? '<div class="career-record">Bilans: <span>' + wrestler.careerRecord + '</span></div>' : '') + '</div><div class="hover-cta">Kliknij aby zobaczyć więcej →</div>';
+
+            return card;
+        }
+
+        function openModal(wrestler) {
+            const modal = document.getElementById('wrestlerModal');
+            const modalBody = document.getElementById('modalBody');
+
+            let achievementsHTML = '';
+            wrestler.achievements.forEach((achievement, index) => {
+                achievementsHTML += '<div class="achievement-item"><div class="achievement-number">' + (index + 1) + '</div><div class="achievement-text">' + achievement + '</div></div>';
+            });
+
+            modalBody.innerHTML = '<div class="modal-header"><h2 class="modal-title">' + wrestler.name + '</h2><p class="modal-subtitle">' + wrestler.nickname + '</p></div><div class="info-grid"><div class="info-card"><div class="info-label">Kraj</div><div class="info-value">' + wrestler.country + '</div></div><div class="info-card"><div class="info-label">Era</div><div class="info-value">' + wrestler.era + '</div></div><div class="info-card"><div class="info-label">Styl</div><div class="info-value">' + wrestler.style + '</div></div><div class="info-card"><div class="info-label">Kategoria</div><div class="info-value">' + wrestler.weight + '</div></div></div><div class="title-banner"><svg style="width: 24px; height: 24px; color: #fbbf24; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg><div class="title-text">' + wrestler.titles + '</div></div><div><h3 class="section-title"><svg style="width: 20px; height: 20px; color: #fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>Biografia</h3><p class="bio-text">' + wrestler.bio + '</p></div>' + (wrestler.careerRecord ? '<div class="record-card"><div class="record-label">Bilans kariery</div><div class="record-value">' + wrestler.careerRecord + '</div></div>' : '') + '<div><h3 class="section-title"><svg style="width: 20px; height: 20px; color: #fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>Osiągnięcia</h3><div class="achievement-list">' + achievementsHTML + '</div></div><div class="legacy-banner"><svg style="width: 48px; height: 48px; color: #fbbf24; margin: 0 auto;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg><p class="legacy-title">Legenda zapasów klasycznych</p><p class="legacy-text">Jego osiągnięcia inspirują kolejne pokolenia zapaśników</p></div>';
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('wrestlerModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
